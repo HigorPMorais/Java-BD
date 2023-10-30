@@ -60,5 +60,11 @@ public class Aluno {
         this.curso = curso;
     }
 
-   
+    public void Exibir(){
+        System.out.println("idAluno = "+ idAluno +
+                            "\nNome: " +nome +
+                            "\nCPF: "+cpf +
+                            "Endereco: " + endereco +
+                            "Curso: " + curso);
+    }
 }

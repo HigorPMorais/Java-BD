@@ -153,8 +153,8 @@ public class DaoAluno extends Dao {
     }
     
     public void listar(){
-        for (int i = 1; i < listaAlunos.size(); i++) {
-                listaAlunos.get(i);
+        for (Aluno listaAluno : listaAlunos) {
+            
         }
     }
 }
