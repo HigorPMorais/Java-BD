@@ -30,4 +30,21 @@ public class ControleAluno {
     public void listar(){
         daoAluno.listar();
     }
+    
+    public void deletar(){
+        System.out.println("Informe a ID do aluno que voce deseja remover: ");
+        int resp = Input.nextInt();
+        
+        Aluno al = daoAluno.carregarPorId(resp);
+        daoAluno.remover(al);
+    }
+    
+    public void atualizar(){
+        System.out.println("Informe a ID do aluno que voce deseja atualizar: ");
+        int resp = Input.nextInt();
+        
+        Aluno al = daoAluno.carregarPorId(resp);
+        daoAluno.atualizar(al);
+    }
+    
 }

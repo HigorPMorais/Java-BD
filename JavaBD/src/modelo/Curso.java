@@ -47,4 +47,12 @@ public class Curso {
     public void setQtdSemestres(String qtdSemestres) {
         this.qtdSemestres = qtdSemestres;
     }
+    
+    public void exibir(){
+        System.out.println("\nInformacoes do Curso");
+        System.out.println("idCurso: " +idCurso + 
+                "\nNome: " + nome + 
+                "\nCarga Horaria: " +cargaHoraria+
+                "\nQuantidade de Semestres: " + qtdSemestres);
+    }
 }

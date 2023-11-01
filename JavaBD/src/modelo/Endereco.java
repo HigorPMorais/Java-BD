@@ -47,11 +47,13 @@ public class Endereco {
     public void setNumero(String numero) {
         this.numero = numero;
     }
-
-    @Override
-    public String toString() {
-        return "Endereco{" + "idEndereco=" + idEndereco + ", cidade=" + cidade + ", rua=" + rua + ", numero=" + numero + '}';
-    }
     
+    public void exibir(){
+        System.out.println("\nInformacoes do Endereco");
+        System.out.println("idEndereco: " + idEndereco + 
+                "\nCidade: " + cidade + 
+                "\nRua: " + rua + 
+                "\nNumero: " + numero);
+    }
      
 }

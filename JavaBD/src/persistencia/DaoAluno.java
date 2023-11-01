@@ -5,7 +5,6 @@ import modelo.Aluno;
 import java.util.*;
 
 public class DaoAluno extends Dao {
-
     private DaoEndereco daoEndereco;
     private DaoCurso daoCurso;
     ArrayList<Aluno> listaAlunos = new ArrayList<>();
@@ -18,8 +17,9 @@ public class DaoAluno extends Dao {
     public ArrayList<Aluno> carregarAlunos() {
         try {
             String sql = """
-                         SELECT * FROM aluno 
-                         left join endereco as ed on idEndereco = ed.idEndereco""";
+                         SELECT * FROM aluno as al
+                         left join endereco as ed on idEndereco = al.FK_idEndereco
+                         left join curso as cu on idCurso = al.FK_idCurso""";
             ResultSet rs = consultaSQL(sql);
             while (rs.next()) {
                 Aluno p = new Aluno();
@@ -33,6 +33,12 @@ public class DaoAluno extends Dao {
                     p.getEndereco().setRua(rs.getString("rua"));
                     p.getEndereco().setNumero(rs.getString("numero"));
                 }
+                if(rs.getObject("idCurso", Integer.class) != null){
+                    p.getCurso().setIdCurso(rs.getInt("idCurso"));
+                    p.getCurso().setNome(rs.getString("nome"));
+                    p.getCurso().setCargaHoraria("cargaHoraria");
+                    p.getCurso().setQtdSemestres("qtdSemestres");
+                }
                 listaAlunos.add(p);
             }
 
@@ -45,9 +51,11 @@ public class DaoAluno extends Dao {
     public Aluno carregarPorId(int idAluno) {
         Aluno cl = null;
         try {
-            String sql = "SELECT * FROM aluno \n"
-                    + "left join endereco as ed on idEndereco = ed.idEndereco"
-                    + " where aluno.idAluno = " + idAluno;
+            String sql = """
+                         SELECT * FROM aluno as al
+                         left join endereco as ed on idEndereco = al.FK_idEndereco 
+                         left join curso as cu on idCurso = al.FK_idCurso
+                         where al.idAluno = """ + idAluno;
             ResultSet rs = consultaSQL(sql);
             if (rs.next()) {
                 cl = new Aluno();
@@ -61,6 +69,12 @@ public class DaoAluno extends Dao {
                     cl.getEndereco().setRua(rs.getString("rua"));
                     cl.getEndereco().setNumero(rs.getString("numero"));
                 }
+                if(rs.getObject("idCurso", Integer.class) != null){
+                    cl.getCurso().setIdCurso(rs.getInt("idCurso"));
+                    cl.getCurso().setNome(rs.getString("nome"));
+                    cl.getCurso().setCargaHoraria("cargaHoraria");
+                    cl.getCurso().setQtdSemestres("qtdSemestres");
+                }
             }
         } catch (SQLException e) {
             System.out.println("Falha ao carregar aluno!\n"
@@ -71,9 +85,10 @@ public class DaoAluno extends Dao {
 
     public boolean salvar(Aluno aluno) {
         try {
-            String sql = "INSERT INTO aluno(\n"
-                    + " nome, cpf, idEndereco, idCurso)\n"
-                    + " VALUES ( ?, ?, ?, ?)";
+            String sql = """
+                         INSERT INTO aluno(
+                          nome, cpf, FK_idEndereco, FK_idCurso)
+                          VALUES ( ?, ?, ?, ?)""";
 
             PreparedStatement ps = criarPreparedStatement(sql);
             ps.setString(1, aluno.getNome());
@@ -96,6 +111,7 @@ public class DaoAluno extends Dao {
             } else {
                 ps.setObject(4, null);
             }
+            
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -111,9 +127,10 @@ public class DaoAluno extends Dao {
 
     public boolean atualizar(Aluno aluno) {
         try {
-            String sql = "UPDATE aluno\n"
-                    + "SET nome=?, cpf=?, tel=?, idEndereco=?, idCurso=? \n"
-                    + " WHERE idAluno= " + aluno.getIdAluno();
+            String sql = """
+                         UPDATE aluno
+                         SET nome=?, cpf=?, tel=?, idEndereco=?, idCurso=? 
+                          WHERE idAluno= """ + aluno.getIdAluno();
 
             PreparedStatement ps = criarPreparedStatement(sql);
             ps.setString(1, aluno.getNome());
@@ -129,6 +146,17 @@ public class DaoAluno extends Dao {
             } else {
                 ps.setObject(3, null);
             }
+            
+            if(aluno.getCurso() != null){
+                if(aluno.getCurso().getIdCurso() == null){
+                    daoCurso.salvar(aluno.getCurso());
+                } else{
+                    daoCurso.atualizar(aluno.getCurso());
+                }
+                ps.setInt(4, aluno.getCurso().getIdCurso());
+            }else{
+                ps.setObject(4, null);
+            }
 
             ps.executeUpdate();
             return true;
@@ -140,9 +168,10 @@ public class DaoAluno extends Dao {
 
     public boolean remover(Aluno aluno) {
         try {
-            String sql = "DELETE FROM aluno\n"
-                    + " WHERE idAluno =" + aluno.getIdAluno()
-                    + "; " + daoEndereco.comandoSqlRemover(aluno.getEndereco());
+            String sql = """
+                         DELETE FROM aluno
+                          WHERE idAluno = ?""" + aluno.getIdAluno()
+                    + "; " + daoEndereco.comandoSqlRemover(aluno.getEndereco()) + daoCurso.comandoSqlRemover(aluno.getCurso());
 
             executeSql(sql);
             return true;
@@ -153,8 +182,10 @@ public class DaoAluno extends Dao {
     }
     
     public void listar(){
+        listaAlunos = carregarAlunos();
         for (Aluno listaAluno : listaAlunos) {
-            
+            System.out.println("-----------------------------------------");
+            listaAluno.exibir();
         }
-    }
+    }    
 }

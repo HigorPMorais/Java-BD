@@ -1,8 +1,5 @@
 package controle;
 
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import persistencia.DaoAluno;
 import util.Input;
 
@@ -26,9 +23,11 @@ public class controle {
                 switch (alt) {
                     case 1 -> controleAluno.cadastrar();
                     case 2 -> controleAluno.listar();
+                    case 3 -> controleAluno.atualizar();
+                    case 4 -> controleAluno.deletar();
                 }
             } while (alt != 0);
             
         }
-  
+         
 }
