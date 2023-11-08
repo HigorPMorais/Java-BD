@@ -87,12 +87,12 @@ ArrayList<Disciplina> disciplinas = new ArrayList<>();
     }
 
     public String comandoSqlRemover(Disciplina dis) {
-        return "DELETE FROM curso WHERE idCurso = " + dis.getIdDisciplina();
+        return "DELETE FROM disciplina WHERE idDisciplina = " + dis.getIdDisciplina();
     }
 
     public boolean remover(Disciplina dis) {
         try {
-            executeSql(comandoSqlRemover(cu));
+            executeSql(comandoSqlRemover(dis));
             return true;
         } catch (SQLException e) {
             System.out.println("Falha ao remover curso da matrix\n" + e.getMessage());
@@ -101,11 +101,11 @@ ArrayList<Disciplina> disciplinas = new ArrayList<>();
     }
     
     public void listar(){
-        for (Curso curso : cursos) {
-            System.out.println("ID: " +curso.getIdCurso());
-            System.out.println("Nome: "+curso.getNome());
-            System.out.println("Carga Horaria: " + curso.getCargaHoraria());
-            System.out.println("Quantidade de Semestres: " +curso.getQtdSemestres());
+        for (Disciplina disciplina : disciplinas) {
+            System.out.println("ID: " +disciplina.getIdDisciplina());
+            System.out.println("Nome: "+disciplina.getNome());
+            System.out.println("Carga Horaria: " + disciplina.getCargaHoraria());
+            System.out.println("Quantidade de Semestres: " +disciplina.getSemestre());
         }
     }
 
