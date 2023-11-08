@@ -4,8 +4,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import modelo.Curso;
 
+
 public class DaoCurso extends Dao{
     ArrayList<Curso> cursos = new ArrayList<>();
+    
     public ArrayList<Curso> carregarCursos(Curso cu) {
         try {
             String sql = "select * from curso";
