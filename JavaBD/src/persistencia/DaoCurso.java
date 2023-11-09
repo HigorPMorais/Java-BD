@@ -3,6 +3,7 @@ package persistencia;
 import java.sql.*;
 import java.util.ArrayList;
 import modelo.Curso;
+import modelo.Disciplina;
 
 
 public class DaoCurso extends Dao{
@@ -25,7 +26,7 @@ public class DaoCurso extends Dao{
         }
         return cursos;
     }
-
+    
     public Curso carregarCursoPorId(int idCurso) {
         Curso cu = null;
         try {

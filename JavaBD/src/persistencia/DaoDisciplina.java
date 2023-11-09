@@ -81,7 +81,7 @@ ArrayList<Disciplina> disciplinas = new ArrayList<>();
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            System.out.println("Falha ao editar curso da Matrix\n" + ex.getMessage());
+            System.out.println("Falha ao editar disciplina da Matrix\n" + ex.getMessage());
             return false;
         }
     }
@@ -95,7 +95,7 @@ ArrayList<Disciplina> disciplinas = new ArrayList<>();
             executeSql(comandoSqlRemover(dis));
             return true;
         } catch (SQLException e) {
-            System.out.println("Falha ao remover curso da matrix\n" + e.getMessage());
+            System.out.println("Falha ao remover disciplina da matrix\n" + e.getMessage());
             return false;
         }
     }
@@ -105,7 +105,7 @@ ArrayList<Disciplina> disciplinas = new ArrayList<>();
             System.out.println("ID: " +disciplina.getIdDisciplina());
             System.out.println("Nome: "+disciplina.getNome());
             System.out.println("Carga Horaria: " + disciplina.getCargaHoraria());
-            System.out.println("Quantidade de Semestres: " +disciplina.getSemestre());
+            System.out.println("Semestre: " +disciplina.getSemestre());
         }
     }
 

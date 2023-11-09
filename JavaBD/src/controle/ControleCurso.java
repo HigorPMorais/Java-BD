@@ -1,7 +1,6 @@
 package controle;
 
 import modelo.Curso;
-import modelo.Endereco;
 import persistencia.DaoCurso;
 import util.Input;
 
@@ -10,13 +9,13 @@ public class ControleCurso {
     Curso cu = new Curso();
     
     public void setarDados(Curso cu){
-        System.out.println("-------   Menu de Cadastro do Endereço   -------\n");
+        System.out.println("-------   Menu de Cadastro do Curso   -------\n");
         
-        System.out.println("Informe o nome da sua cidade: ");
+        System.out.println("Informe o nome do seu Curso: ");
         cu.setNome(Input.nextLine());
-        System.out.println("Informe o nome da sua rua: ");
+        System.out.println("Informe a Carga Horaria: ");
         cu.setCargaHoraria(Input.nextLine());
-        System.out.println("Informe o numero de sua residencia: ");
+        System.out.println("Informe a Quantidade de Semestres: ");
         cu.setQtdSemestres(Input.nextLine());   
     }
     
@@ -36,12 +35,12 @@ public class ControleCurso {
     public void atualizar(){
         System.out.println("-------   Menu de Atualização   -------\n");
         
-        System.out.println("Informe o nome da sua cidade: ");
+        System.out.println("Informe o nome do seu Curso: ");
         cu.setNome(Input.nextLine());
-        System.out.println("Informe o nome da sua rua: ");
+        System.out.println("Informe a Carga Horaria: ");
         cu.setCargaHoraria(Input.nextLine());
-        System.out.println("Informe o numero de sua residencia: ");
-        cu.setQtdSemestres(Input.nextLine());   
+        System.out.println("Informe a Quantidade de Semestres: ");
+        cu.setQtdSemestres(Input.nextLine());     
         
         daoCurso.atualizar(cu);
         daoCurso.carregarCursos(cu);
