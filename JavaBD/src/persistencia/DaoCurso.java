@@ -6,10 +6,11 @@ import modelo.Curso;
 import modelo.Disciplina;
 
 
+
 public class DaoCurso extends Dao{
     ArrayList<Curso> cursos = new ArrayList<>();
     
-    public ArrayList<Curso> carregarCursos(Curso cu) {
+    public ArrayList<Curso> carregarCursos(Curso cu, Disciplina dis) {
         try {
             String sql = "select * from curso";
             ResultSet rs = consultaSQL(sql);
@@ -20,6 +21,12 @@ public class DaoCurso extends Dao{
                 cu.setQtdSemestres(rs.getString("qtdSemestres"));
 
                 cursos.add(cu);
+            
+            ResultSet Rs = consultaSQL(sql);
+                dis.setIdDisciplina(Rs.getInt("idDisciplina"));
+                dis.setNome(Rs.getString("nome"));
+                dis.setCargaHoraria(Rs.getString("cargaHoraria"));
+                dis.setSemestre(Rs.getString("semestre"));
             }
         } catch (SQLException ex) {
             System.out.println("Falha ao carregar a matrix do CUrso!\n" + ex.getMessage());

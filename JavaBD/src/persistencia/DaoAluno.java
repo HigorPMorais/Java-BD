@@ -39,6 +39,7 @@ public class DaoAluno extends Dao {
                     p.getCurso().setCargaHoraria("cargaHoraria");
                     p.getCurso().setQtdSemestres("qtdSemestres");
                 }
+        
                 listaAlunos.add(p);
             }
 

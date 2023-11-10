@@ -16,7 +16,7 @@ ArrayList<Disciplina> disciplinas = new ArrayList<>();
                 dis.setIdDisciplina(rs.getInt("idDisciplina"));
                 dis.setNome(rs.getString("nome"));
                 dis.setCargaHoraria(rs.getString("cargaHoraria"));
-                dis.setSemestre(rs.getString("Semestres"));
+                dis.setSemestre(rs.getString("Semestre"));
 
                 disciplinas.add(dis);
             }
