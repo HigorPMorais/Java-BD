@@ -1,30 +1,11 @@
 package persistencia;
 
 import java.sql.*;
-import java.util.*;
+import modelo.Curso;
 import modelo.Disciplina;
 
 
 public class DaoDisciplina extends Dao{
-ArrayList<Disciplina> disciplinas = new ArrayList<>();
-
-    public ArrayList<Disciplina> carregarDisciplina(Disciplina dis){
-        try {
-            String sql = "select * from disciplina";
-            ResultSet rs = consultaSQL(sql);
-            while (rs.next()) {
-                dis.setIdDisciplina(rs.getInt("idDisciplina"));
-                dis.setNome(rs.getString("nome"));
-                dis.setCargaHoraria(rs.getString("cargaHoraria"));
-                dis.setSemestre(rs.getString("Semestre"));
-
-                disciplinas.add(dis);
-            }
-        } catch (SQLException ex) {
-            System.out.println("Falha ao carregar a matrix do CUrso!\n" + ex.getMessage());
-        }
-        return disciplinas;
-    }
 
     public Disciplina carregarCursoPorId(int idDisciplina) {
         Disciplina dis = null;
@@ -46,17 +27,18 @@ ArrayList<Disciplina> disciplinas = new ArrayList<>();
 
     public boolean salvar(Disciplina dis) {
         try {
+            Integer FK = cu.getIdCurso();
             String sql = """
                          INSERT INTO disciplina(
-                          idDisciplina, nome, cargaHoraria, semestre )
-                          VALUES (?, ?, ?, ?);""";
+                         nome, cargaHoraria, semestre,FK_idCurso )
+                         VALUES (?, ?, ?, ?);""";
 
             PreparedStatement ps = criarPreparedStatement(sql);
             dis.setIdDisciplina(gerarProximoId("disciplina", "idDisciplina"));
-            ps.setInt(1, dis.getIdDisciplina());
-            ps.setString(2, dis.getNome());
-            ps.setString(3, dis.getCargaHoraria());
-            ps.setString(4, dis.getSemestre());
+            ps.setString(1, dis.getNome());
+            ps.setString(2, dis.getCargaHoraria());
+            ps.setString(3, dis.getSemestre());
+            ps.setInt(4, FK);
 
             ps.executeUpdate();
             return true;
@@ -99,14 +81,4 @@ ArrayList<Disciplina> disciplinas = new ArrayList<>();
             return false;
         }
     }
-    
-    public void listar(){
-        for (Disciplina disciplina : disciplinas) {
-            System.out.println("ID: " +disciplina.getIdDisciplina());
-            System.out.println("Nome: "+disciplina.getNome());
-            System.out.println("Carga Horaria: " + disciplina.getCargaHoraria());
-            System.out.println("Semestre: " +disciplina.getSemestre());
-        }
-    }
-
 }

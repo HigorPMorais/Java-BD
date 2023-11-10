@@ -7,16 +7,19 @@ public class Curso {
     private String nome;
     private String cargaHoraria;
     private String qtdSemestres;
+    private Disciplina disciplina;
    
 
     public Curso() {
+        disciplina = new Disciplina();
     }
 
-    public Curso(Integer idCurso, String nome, String cargaHoraria, String qtdSemestres) {
+    public Curso(Integer idCurso, String nome, String cargaHoraria, String qtdSemestres, Disciplina disciplina) {
         this.idCurso = idCurso;
         this.nome = nome;
         this.cargaHoraria = cargaHoraria;
         this.qtdSemestres = qtdSemestres;
+        this.disciplina = disciplina;
     }
 
     public Integer getIdCurso() {
@@ -50,6 +53,16 @@ public class Curso {
     public void setQtdSemestres(String qtdSemestres) {
         this.qtdSemestres = qtdSemestres;
     }
+
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
+    }
+
+    
    
     
     

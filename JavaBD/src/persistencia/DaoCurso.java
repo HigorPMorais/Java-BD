@@ -34,6 +34,20 @@ public class DaoCurso extends Dao{
         return cursos;
     }
     
+    public int carregarUltimoCurso(Curso cu){
+        
+        try {
+            String sql = ("SELECT MAX(idCurso) FROM curso");
+            ResultSet rs = consultaSQL(sql);
+            int FK = cu.setIdCurso(rs.getInt("idCurso"));
+        } catch (SQLException ex) {
+            System.out.println("Falha ao carregar a matrix do CUrso!\n" + ex.getMessage());
+        }
+        
+        
+        return FK;
+    }
+    
     public Curso carregarCursoPorId(int idCurso) {
         Curso cu = null;
         try {

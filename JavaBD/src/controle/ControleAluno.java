@@ -20,6 +20,7 @@ public class ControleAluno {
         al.setEndereco(controlEnd.cadastrar());
         al.setCurso(ControlCu.cadastrar());
         
+        
     }
     
     public void cadastrar(){
